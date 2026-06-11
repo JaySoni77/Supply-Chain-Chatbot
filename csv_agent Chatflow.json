@@ -1,0 +1,620 @@
+{
+  "nodes": [
+    {
+      "id": "stickyNote_0",
+      "position": {
+        "x": 1382.0413608492051,
+        "y": 331.1861177099975
+      },
+      "type": "stickyNote",
+      "data": {
+        "id": "stickyNote_0",
+        "label": "Sticky Note",
+        "version": 2,
+        "name": "stickyNote",
+        "type": "StickyNote",
+        "baseClasses": [
+          "StickyNote"
+        ],
+        "tags": [
+          "Utilities"
+        ],
+        "category": "Utilities",
+        "description": "Add a sticky note",
+        "inputParams": [
+          {
+            "label": "",
+            "name": "note",
+            "type": "string",
+            "rows": 1,
+            "placeholder": "Type something here",
+            "optional": true,
+            "id": "stickyNote_0-input-note-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "note": "This agent uses the following steps:\n\n1. Convert CSV file to Dataframe object\n\n2. Instruct LLM to generate Python code to answer user question using the dataframe provided\n\n3. Return the result in a natural language response\n\nYou can also specify the system message and custom \"read_csv file\" function. This allows more flexibility of reading CSV file with different delimiter, separator etc."
+        },
+        "outputAnchors": [
+          {
+            "id": "stickyNote_0-output-stickyNote-StickyNote",
+            "name": "stickyNote",
+            "label": "StickyNote",
+            "description": "Add a sticky note",
+            "type": "StickyNote"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 344,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1382.0413608492051,
+        "y": 331.1861177099975
+      },
+      "dragging": false
+    },
+    {
+      "id": "csvAgent_0",
+      "position": {
+        "x": 1017.529472715762,
+        "y": 286.2869370063613
+      },
+      "type": "customNode",
+      "data": {
+        "id": "csvAgent_0",
+        "label": "CSV Agent",
+        "version": 3,
+        "name": "csvAgent",
+        "type": "AgentExecutor",
+        "baseClasses": [
+          "AgentExecutor",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Agents",
+        "description": "Agent used to answer queries on CSV data",
+        "inputParams": [
+          {
+            "label": "Csv File",
+            "name": "csvFile",
+            "type": "file",
+            "fileType": ".csv",
+            "id": "csvAgent_0-input-csvFile-file"
+          },
+          {
+            "label": "System Message",
+            "name": "systemMessagePrompt",
+            "type": "string",
+            "rows": 4,
+            "additionalParams": true,
+            "optional": true,
+            "placeholder": "I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". You will provide me with answers from the given info. If the answer is not included, say exactly \"Hmm, I am not sure.\" and stop after that. Refuse to answer any question not about the info. Never break character.",
+            "id": "csvAgent_0-input-systemMessagePrompt-string"
+          },
+          {
+            "label": "Custom Pandas Read_CSV Code",
+            "description": "Custom Pandas <a target=\"_blank\" href=\"https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html\">read_csv</a> function. Takes in an input: \"csv_data\"",
+            "name": "customReadCSV",
+            "default": "read_csv(csv_data)",
+            "type": "code",
+            "optional": true,
+            "additionalParams": true,
+            "id": "csvAgent_0-input-customReadCSV-code"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Language Model",
+            "name": "model",
+            "type": "BaseLanguageModel",
+            "id": "csvAgent_0-input-model-BaseLanguageModel"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "csvAgent_0-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatMistralAI_0.data.instance}}",
+          "systemMessagePrompt": "You are a senior supply chain data analyst with direct access to a supplier \nperformance CSV loaded as a pandas DataFrame named `df`.\n\nThe CSV was loaded with:\nread_csv(csv_data, encoding=\"utf-8\", low_memory=False)\n\n---\n## DATAFRAME SCHEMA\n\n| Column                  | Type    | Notes                                              |\n|-------------------------|---------|----------------------------------------------------|\n| PO_ID                   | string  | Unique purchase order ID                           |\n| Supplier_ID             | string  |                                                    |\n| Supplier_Name           | string  |                                                    |\n| Region                  | string  | e.g. EMEA, APAC, Americas                         |\n| Country                 | string  |                                                    |\n| Product_Category        | string  |                                                    |\n| Product_SKU             | string  |                                                    |\n| Unit_Cost_USD           | float   |                                                    |\n| Lead_Time_Days          | int     |                                                    |\n| OTD_Rate_Pct            | float   | On-time delivery rate, e.g. 93.5 means 93.5%      |\n| Defect_Rate_Pct         | float   | e.g. 2.1 means 2.1%                               |\n| Compliance_Score        | float   | 0–100                                              |\n| Contract_Tier           | string  | Exact values: \"Tier-1\", \"Tier-2\", \"Tier-3\"        |\n| Payment_Terms_Days      | int     |                                                    |\n| MOQ_Units               | int     |                                                    |\n| Annual_Volume_Units     | int     |                                                    |\n| Risk_Level              | string  | e.g. \"High\", \"Medium\", \"Low\"                      |\n| Certifications          | string  |                                                    |\n| Last_Audit_Date         | string  |                                                    |\n| Sustainability_Score    | float   | 0–100                                              |\n| Active_Disruptions      | string  | \"None\" = no disruption. All other values = active |\n| Alt_Supplier_ID         | string  |                                                    |\n| PO_Quarter              | string  |                                                    |\n| Units_Ordered           | int     |                                                    |\n| Units_Delivered_On_Time | int     |                                                    |\n| Units_Rejected          | int     |                                                    |\n| PO_Value_USD            | float   |                                                    |\n\n---\n## QUERY STRATEGY — CRITICAL\n\n- ALWAYS answer in a single pandas operation. NEVER iterate row by row or supplier by supplier.\n- Use .groupby() + .agg() to aggregate across all suppliers in one call.\n- Use multi-condition filtering in one expression:\n  df[(df['col1'] > x) & (df['col2'] == 'value')]\n- Return the complete aggregated JSON result in one response.\n- You have ONE call to answer the question. Make it complete.\n\n---\n## CRITICAL RULES\n\n### Active_Disruptions\n- \"None\" string = NO disruption. This is NOT Python None or NaN.\n- Suppliers WITH active disruptions:  df[df['Active_Disruptions'] != 'None']\n- Suppliers WITHOUT disruptions:      df[df['Active_Disruptions'] == 'None']\n- NEVER use .isna(), .isnull(), or pd.isna() on this column.\n\n### Supplier-level Aggregation\n- DataFrame has ONE ROW PER PO — not per supplier.\n- For supplier-level questions, ALWAYS aggregate first:\n  df.groupby('Supplier_Name').agg(...)\n- For flags like Active_Disruptions or Risk_Level, use .first() per supplier.\n\n### String Matching\n- Never assume exact casing from user input.\n- Use strip() for tier matching: df[df['Contract_Tier'].str.strip() == 'Tier-1']\n- Map fuzzy user terms to the closest known column value.\n\n### Spend & Concentration\n- Total spend:          df['PO_Value_USD'].sum()\n- Regional percentage:  region_spend / total_spend * 100\n- Always compute percentages against the FULL dataset total.\n\n### Numeric Values\n- OTD_Rate_Pct, Defect_Rate_Pct, Compliance_Score, Sustainability_Score\n  are raw numbers (e.g. 93.5). NEVER divide by 100.\n\n---\n## OUTPUT FORMAT\n\n- Always return answer in JSON format only — no preamble, no code, no markdown.\n- For supplier lists: return Supplier_Name values clearly enumerated.\n- For numeric results: round to 2 decimal places.\n- For aggregated metrics: state whether result is per-PO or per-supplier.\n- Never return raw DataFrame output or Python code in the response.",
+          "inputModeration": "",
+          "customReadCSV": "read_csv(\n    csv_data,\n    encoding=\"utf-8\",\n    low_memory=False\n)"
+        },
+        "outputAnchors": [
+          {
+            "id": "csvAgent_0-output-csvAgent-AgentExecutor|BaseChain|Runnable",
+            "name": "csvAgent",
+            "label": "AgentExecutor",
+            "description": "Agent used to answer queries on CSV data",
+            "type": "AgentExecutor | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 468,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1017.529472715762,
+        "y": 286.2869370063613
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatMistralAI_0",
+      "position": {
+        "x": 598.6626608790972,
+        "y": 199.077716847817
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatMistralAI_0",
+        "label": "MistralAI",
+        "version": 4,
+        "name": "chatMistralAI",
+        "type": "ChatMistralAI",
+        "baseClasses": [
+          "ChatMistralAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around Mistral large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "mistralAIApi"
+            ],
+            "id": "chatMistralAI_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "mistral-tiny",
+            "id": "chatMistralAI_0-input-modelName-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "description": "What sampling temperature to use, between 0.0 and 1.0. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatMistralAI_0-input-temperature-number",
+            "display": true
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatMistralAI_0-input-streaming-boolean",
+            "display": true
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "description": "The maximum number of tokens to generate in the completion.",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatMistralAI_0-input-maxOutputTokens-number",
+            "display": true
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatMistralAI_0-input-topP-number",
+            "display": true
+          },
+          {
+            "label": "Random Seed",
+            "name": "randomSeed",
+            "type": "number",
+            "description": "The seed to use for random sampling. If set, different calls will generate deterministic results.",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatMistralAI_0-input-randomSeed-number",
+            "display": true
+          },
+          {
+            "label": "Safe Mode",
+            "name": "safeMode",
+            "type": "boolean",
+            "description": "Whether to inject a safety prompt before all conversations.",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatMistralAI_0-input-safeMode-boolean",
+            "display": true
+          },
+          {
+            "label": "Override Endpoint",
+            "name": "overrideEndpoint",
+            "type": "string",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatMistralAI_0-input-overrideEndpoint-string",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatMistralAI_0-input-cache-BaseCache",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "mistral-large-latest",
+          "temperature": "0.1",
+          "streaming": true,
+          "maxOutputTokens": "",
+          "topP": "",
+          "randomSeed": "",
+          "safeMode": "",
+          "overrideEndpoint": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatMistralAI_0-output-chatMistralAI-ChatMistralAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatMistralAI",
+            "label": "ChatMistralAI",
+            "description": "Wrapper around Mistral large language models that use the Chat endpoint",
+            "type": "ChatMistralAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 578,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 598.6626608790972,
+        "y": 199.077716847817
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatOpenRouter_0",
+      "position": {
+        "x": 195.47328684022284,
+        "y": 189.8797873793709
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatOpenRouter_0",
+        "label": "OpenRouter",
+        "version": 1,
+        "name": "chatOpenRouter",
+        "type": "ChatOpenRouter",
+        "baseClasses": [
+          "ChatOpenRouter",
+          "BaseChatOpenAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around Open Router Inference API",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "openRouterApi"
+            ],
+            "optional": true,
+            "id": "chatOpenRouter_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "string",
+            "placeholder": "openai/gpt-3.5-turbo",
+            "id": "chatOpenRouter_0-input-modelName-string",
+            "display": true
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatOpenRouter_0-input-temperature-number",
+            "display": true
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-streaming-boolean",
+            "display": true
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatOpenRouter_0-input-allowImageUploads-boolean",
+            "display": true
+          },
+          {
+            "label": "Max Tokens",
+            "name": "maxTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-maxTokens-number",
+            "display": true
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-topP-number",
+            "display": true
+          },
+          {
+            "label": "Frequency Penalty",
+            "name": "frequencyPenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-frequencyPenalty-number",
+            "display": true
+          },
+          {
+            "label": "Presence Penalty",
+            "name": "presencePenalty",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-presencePenalty-number",
+            "display": true
+          },
+          {
+            "label": "Timeout",
+            "name": "timeout",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-timeout-number",
+            "display": true
+          },
+          {
+            "label": "Base Path",
+            "name": "basepath",
+            "type": "string",
+            "optional": true,
+            "default": "https://openrouter.ai/api/v1",
+            "description": "Override the default base URL for the API, e.g., \"https://api.example.com/v2/",
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-basepath-string",
+            "display": true
+          },
+          {
+            "label": "Base Options",
+            "name": "baseOptions",
+            "type": "json",
+            "optional": true,
+            "description": "Default headers to include with every request to the API.",
+            "additionalParams": true,
+            "id": "chatOpenRouter_0-input-baseOptions-json",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatOpenRouter_0-input-cache-BaseCache",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "temperature": "0.1",
+          "streaming": true,
+          "allowImageUploads": "",
+          "maxTokens": "",
+          "topP": "",
+          "frequencyPenalty": "",
+          "presencePenalty": "",
+          "timeout": "",
+          "basepath": "https://openrouter.ai/api/v1",
+          "baseOptions": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatOpenRouter_0-output-chatOpenRouter-ChatOpenRouter|BaseChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatOpenRouter",
+            "label": "ChatOpenRouter",
+            "description": "Wrapper around Open Router Inference API",
+            "type": "ChatOpenRouter | BaseChatOpenAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 678,
+      "positionAbsolute": {
+        "x": 195.47328684022284,
+        "y": 189.8797873793709
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "groqChat_0",
+      "position": {
+        "x": -233.57454902668823,
+        "y": 157.47086461046825
+      },
+      "type": "customNode",
+      "data": {
+        "id": "groqChat_0",
+        "label": "Groq",
+        "version": 4,
+        "name": "groqChat",
+        "type": "GroqChat",
+        "baseClasses": [
+          "GroqChat",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around Groq API with LPU Inference Engine",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "groqApi"
+            ],
+            "optional": true,
+            "id": "groqChat_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "placeholder": "llama3-70b-8192",
+            "id": "groqChat_0-input-modelName-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "groqChat_0-input-temperature-number",
+            "display": true
+          },
+          {
+            "label": "Max Tokens",
+            "name": "maxTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "groqChat_0-input-maxTokens-number",
+            "display": true
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "groqChat_0-input-streaming-boolean",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "groqChat_0-input-cache-BaseCache",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "llama-3.3-70b-versatile",
+          "temperature": "0.1",
+          "maxTokens": "",
+          "streaming": true
+        },
+        "outputAnchors": [
+          {
+            "id": "groqChat_0-output-groqChat-GroqChat|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "groqChat",
+            "label": "GroqChat",
+            "description": "Wrapper around Groq API with LPU Inference Engine",
+            "type": "GroqChat | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 675,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -233.57454902668823,
+        "y": 157.47086461046825
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "chatMistralAI_0",
+      "sourceHandle": "chatMistralAI_0-output-chatMistralAI-ChatMistralAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "csvAgent_0",
+      "targetHandle": "csvAgent_0-input-model-BaseLanguageModel",
+      "type": "buttonedge",
+      "id": "chatMistralAI_0-chatMistralAI_0-output-chatMistralAI-ChatMistralAI|BaseChatModel|BaseLanguageModel|Runnable-csvAgent_0-csvAgent_0-input-model-BaseLanguageModel"
+    }
+  ]
+}
