@@ -1,0 +1,790 @@
+{
+  "nodes": [
+    {
+      "id": "startAgentflow_0",
+      "type": "agentFlow",
+      "position": {
+        "x": -205.20583409621844,
+        "y": 46.48895616547895
+      },
+      "data": {
+        "id": "startAgentflow_0",
+        "label": "Start",
+        "version": 1.1,
+        "name": "startAgentflow",
+        "type": "Start",
+        "color": "#7EE787",
+        "hideInput": true,
+        "baseClasses": [
+          "Start"
+        ],
+        "category": "Agent Flows",
+        "description": "Starting point of the agentflow",
+        "inputParams": [
+          {
+            "label": "Input Type",
+            "name": "startInputType",
+            "type": "options",
+            "options": [
+              {
+                "label": "Chat Input",
+                "name": "chatInput",
+                "description": "Start the conversation with chat input"
+              },
+              {
+                "label": "Form Input",
+                "name": "formInput",
+                "description": "Start the workflow with form inputs"
+              }
+            ],
+            "default": "chatInput",
+            "id": "startAgentflow_0-input-startInputType-options",
+            "display": true
+          },
+          {
+            "label": "Form Title",
+            "name": "formTitle",
+            "type": "string",
+            "placeholder": "Please Fill Out The Form",
+            "show": {
+              "startInputType": "formInput"
+            },
+            "id": "startAgentflow_0-input-formTitle-string",
+            "display": false
+          },
+          {
+            "label": "Form Description",
+            "name": "formDescription",
+            "type": "string",
+            "placeholder": "Complete all fields below to continue",
+            "show": {
+              "startInputType": "formInput"
+            },
+            "id": "startAgentflow_0-input-formDescription-string",
+            "display": false
+          },
+          {
+            "label": "Form Input Types",
+            "name": "formInputTypes",
+            "description": "Specify the type of form input",
+            "type": "array",
+            "show": {
+              "startInputType": "formInput"
+            },
+            "array": [
+              {
+                "label": "Type",
+                "name": "type",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "String",
+                    "name": "string"
+                  },
+                  {
+                    "label": "Number",
+                    "name": "number"
+                  },
+                  {
+                    "label": "Boolean",
+                    "name": "boolean"
+                  },
+                  {
+                    "label": "Options",
+                    "name": "options"
+                  }
+                ],
+                "default": "string"
+              },
+              {
+                "label": "Label",
+                "name": "label",
+                "type": "string",
+                "placeholder": "Label for the input"
+              },
+              {
+                "label": "Variable Name",
+                "name": "name",
+                "type": "string",
+                "placeholder": "Variable name for the input (must be camel case)",
+                "description": "Variable name must be camel case. For example: firstName, lastName, etc."
+              },
+              {
+                "label": "Add Options",
+                "name": "addOptions",
+                "type": "array",
+                "show": {
+                  "formInputTypes[$index].type": "options"
+                },
+                "array": [
+                  {
+                    "label": "Option",
+                    "name": "option",
+                    "type": "string"
+                  }
+                ]
+              }
+            ],
+            "id": "startAgentflow_0-input-formInputTypes-array",
+            "display": false
+          },
+          {
+            "label": "Ephemeral Memory",
+            "name": "startEphemeralMemory",
+            "type": "boolean",
+            "description": "Start fresh for every execution without past chat history",
+            "optional": true,
+            "id": "startAgentflow_0-input-startEphemeralMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Flow State",
+            "name": "startState",
+            "description": "Runtime state during the execution of the workflow",
+            "type": "array",
+            "optional": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "string",
+                "placeholder": "Foo"
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "placeholder": "Bar",
+                "optional": true
+              }
+            ],
+            "id": "startAgentflow_0-input-startState-array",
+            "display": true
+          },
+          {
+            "label": "Persist State",
+            "name": "startPersistState",
+            "type": "boolean",
+            "description": "Persist the state in the same session",
+            "optional": true,
+            "id": "startAgentflow_0-input-startPersistState-boolean",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "startInputType": "chatInput",
+          "formTitle": "",
+          "formDescription": "",
+          "formInputTypes": "",
+          "startEphemeralMemory": "",
+          "startState": [
+            {
+              "key": "agent_answer",
+              "value": ""
+            },
+            {
+              "key": "critique_score",
+              "value": ""
+            },
+            {
+              "key": "critique_issues",
+              "value": ""
+            },
+            {
+              "key": "critique_answer",
+              "value": ""
+            }
+          ],
+          "startPersistState": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "startAgentflow_0-output-startAgentflow",
+            "label": "Start",
+            "name": "startAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 103,
+      "height": 66,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -205.20583409621844,
+        "y": 46.48895616547895
+      },
+      "dragging": false
+    },
+    {
+      "id": "agentAgentflow_0",
+      "position": {
+        "x": -20.794148238729797,
+        "y": 15.29537975836324
+      },
+      "data": {
+        "id": "agentAgentflow_0",
+        "label": "Agent 0",
+        "version": 3.2,
+        "name": "agentAgentflow",
+        "type": "Agent",
+        "color": "#4DD0E1",
+        "baseClasses": [
+          "Agent"
+        ],
+        "category": "Agent Flows",
+        "description": "Dynamically choose and utilize tools during runtime, enabling multi-step reasoning",
+        "inputParams": [
+          {
+            "label": "Model",
+            "name": "agentModel",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "loadConfig": true,
+            "id": "agentAgentflow_0-input-agentModel-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Messages",
+            "name": "agentMessages",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Role",
+                "name": "role",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "System",
+                    "name": "system"
+                  },
+                  {
+                    "label": "Assistant",
+                    "name": "assistant"
+                  },
+                  {
+                    "label": "Developer",
+                    "name": "developer"
+                  },
+                  {
+                    "label": "User",
+                    "name": "user"
+                  }
+                ]
+              },
+              {
+                "label": "Content",
+                "name": "content",
+                "type": "string",
+                "acceptVariable": true,
+                "generateInstruction": true,
+                "rows": 4
+              }
+            ],
+            "id": "agentAgentflow_0-input-agentMessages-array",
+            "display": true
+          },
+          {
+            "label": "OpenAI Built-in Tools",
+            "name": "agentToolsBuiltInOpenAI",
+            "type": "multiOptions",
+            "optional": true,
+            "options": [
+              {
+                "label": "Web Search",
+                "name": "web_search_preview",
+                "description": "Search the web for the latest information"
+              },
+              {
+                "label": "Code Interpreter",
+                "name": "code_interpreter",
+                "description": "Write and run Python code in a sandboxed environment"
+              },
+              {
+                "label": "Image Generation",
+                "name": "image_generation",
+                "description": "Generate images based on a text prompt"
+              }
+            ],
+            "show": {
+              "agentModel": "chatOpenAI"
+            },
+            "id": "agentAgentflow_0-input-agentToolsBuiltInOpenAI-multiOptions",
+            "display": false
+          },
+          {
+            "label": "Gemini Built-in Tools",
+            "name": "agentToolsBuiltInGemini",
+            "type": "multiOptions",
+            "optional": true,
+            "options": [
+              {
+                "label": "URL Context",
+                "name": "urlContext",
+                "description": "Extract content from given URLs"
+              },
+              {
+                "label": "Google Search",
+                "name": "googleSearch",
+                "description": "Search real-time web content"
+              },
+              {
+                "label": "Code Execution",
+                "name": "codeExecution",
+                "description": "Write and run Python code in a sandboxed environment"
+              }
+            ],
+            "show": {
+              "agentModel": "chatGoogleGenerativeAI"
+            },
+            "id": "agentAgentflow_0-input-agentToolsBuiltInGemini-multiOptions",
+            "display": false
+          },
+          {
+            "label": "Anthropic Built-in Tools",
+            "name": "agentToolsBuiltInAnthropic",
+            "type": "multiOptions",
+            "optional": true,
+            "options": [
+              {
+                "label": "Web Search",
+                "name": "web_search_20250305",
+                "description": "Search the web for the latest information"
+              },
+              {
+                "label": "Web Fetch",
+                "name": "web_fetch_20250910",
+                "description": "Retrieve full content from specified web pages"
+              }
+            ],
+            "show": {
+              "agentModel": "chatAnthropic"
+            },
+            "id": "agentAgentflow_0-input-agentToolsBuiltInAnthropic-multiOptions",
+            "display": false
+          },
+          {
+            "label": "Tools",
+            "name": "agentTools",
+            "type": "array",
+            "optional": true,
+            "array": [
+              {
+                "label": "Tool",
+                "name": "agentSelectedTool",
+                "type": "asyncOptions",
+                "loadMethod": "listTools",
+                "loadConfig": true
+              },
+              {
+                "label": "Require Human Input",
+                "name": "agentSelectedToolRequiresHumanInput",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "id": "agentAgentflow_0-input-agentTools-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Document Stores)",
+            "name": "agentKnowledgeDocumentStores",
+            "type": "array",
+            "description": "Give your agent context about different document sources. Document stores must be upserted in advance.",
+            "array": [
+              {
+                "label": "Document Store",
+                "name": "documentStore",
+                "type": "asyncOptions",
+                "loadMethod": "listStores"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "docStoreDescription",
+                "type": "string",
+                "generateDocStoreDescription": true,
+                "placeholder": "Describe what the knowledge base is about, this is useful for the AI to know when and how to search for correct information",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_0-input-agentKnowledgeDocumentStores-array",
+            "display": true
+          },
+          {
+            "label": "Knowledge (Vector Embeddings)",
+            "name": "agentKnowledgeVSEmbeddings",
+            "type": "array",
+            "description": "Give your agent context about different document sources from existing vector stores and embeddings",
+            "array": [
+              {
+                "label": "Vector Store",
+                "name": "vectorStore",
+                "type": "asyncOptions",
+                "loadMethod": "listVectorStores",
+                "loadConfig": true
+              },
+              {
+                "label": "Embedding Model",
+                "name": "embeddingModel",
+                "type": "asyncOptions",
+                "loadMethod": "listEmbeddings",
+                "loadConfig": true
+              },
+              {
+                "label": "Knowledge Name",
+                "name": "knowledgeName",
+                "type": "string",
+                "placeholder": "A short name for the knowledge base, this is useful for the AI to know when and how to search for correct information"
+              },
+              {
+                "label": "Describe Knowledge",
+                "name": "knowledgeDescription",
+                "type": "string",
+                "placeholder": "Describe what the knowledge base is about, this is useful for the AI to know when and how to search for correct information",
+                "rows": 4
+              },
+              {
+                "label": "Return Source Documents",
+                "name": "returnSourceDocuments",
+                "type": "boolean",
+                "optional": true
+              }
+            ],
+            "optional": true,
+            "id": "agentAgentflow_0-input-agentKnowledgeVSEmbeddings-array",
+            "display": true
+          },
+          {
+            "label": "Enable Memory",
+            "name": "agentEnableMemory",
+            "type": "boolean",
+            "description": "Enable memory for the conversation thread",
+            "default": true,
+            "optional": true,
+            "id": "agentAgentflow_0-input-agentEnableMemory-boolean",
+            "display": true
+          },
+          {
+            "label": "Memory Type",
+            "name": "agentMemoryType",
+            "type": "options",
+            "options": [
+              {
+                "label": "All Messages",
+                "name": "allMessages",
+                "description": "Retrieve all messages from the conversation"
+              },
+              {
+                "label": "Window Size",
+                "name": "windowSize",
+                "description": "Uses a fixed window size to surface the last N messages"
+              },
+              {
+                "label": "Conversation Summary",
+                "name": "conversationSummary",
+                "description": "Summarizes the whole conversation"
+              },
+              {
+                "label": "Conversation Summary Buffer",
+                "name": "conversationSummaryBuffer",
+                "description": "Summarize conversations once token limit is reached. Default to 2000"
+              }
+            ],
+            "optional": true,
+            "default": "allMessages",
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_0-input-agentMemoryType-options",
+            "display": true
+          },
+          {
+            "label": "Window Size",
+            "name": "agentMemoryWindowSize",
+            "type": "number",
+            "default": "20",
+            "description": "Uses a fixed window size to surface the last N messages",
+            "show": {
+              "agentMemoryType": "windowSize"
+            },
+            "id": "agentAgentflow_0-input-agentMemoryWindowSize-number",
+            "display": false
+          },
+          {
+            "label": "Max Token Limit",
+            "name": "agentMemoryMaxTokenLimit",
+            "type": "number",
+            "default": "2000",
+            "description": "Summarize conversations once token limit is reached. Default to 2000",
+            "show": {
+              "agentMemoryType": "conversationSummaryBuffer"
+            },
+            "id": "agentAgentflow_0-input-agentMemoryMaxTokenLimit-number",
+            "display": false
+          },
+          {
+            "label": "Input Message",
+            "name": "agentUserMessage",
+            "type": "string",
+            "description": "Add an input message as user message at the end of the conversation",
+            "rows": 4,
+            "optional": true,
+            "acceptVariable": true,
+            "show": {
+              "agentEnableMemory": true
+            },
+            "id": "agentAgentflow_0-input-agentUserMessage-string",
+            "display": true
+          },
+          {
+            "label": "Return Response As",
+            "name": "agentReturnResponseAs",
+            "type": "options",
+            "options": [
+              {
+                "label": "User Message",
+                "name": "userMessage"
+              },
+              {
+                "label": "Assistant Message",
+                "name": "assistantMessage"
+              }
+            ],
+            "default": "userMessage",
+            "id": "agentAgentflow_0-input-agentReturnResponseAs-options",
+            "display": true
+          },
+          {
+            "label": "JSON Structured Output",
+            "name": "agentStructuredOutput",
+            "description": "Instruct the Agent to give output in a JSON structured schema",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "string"
+              },
+              {
+                "label": "Type",
+                "name": "type",
+                "type": "options",
+                "options": [
+                  {
+                    "label": "String",
+                    "name": "string"
+                  },
+                  {
+                    "label": "String Array",
+                    "name": "stringArray"
+                  },
+                  {
+                    "label": "Number",
+                    "name": "number"
+                  },
+                  {
+                    "label": "Boolean",
+                    "name": "boolean"
+                  },
+                  {
+                    "label": "Enum",
+                    "name": "enum"
+                  },
+                  {
+                    "label": "JSON Array",
+                    "name": "jsonArray"
+                  }
+                ]
+              },
+              {
+                "label": "Enum Values",
+                "name": "enumValues",
+                "type": "string",
+                "placeholder": "value1, value2, value3",
+                "description": "Enum values. Separated by comma",
+                "optional": true,
+                "show": {
+                  "agentStructuredOutput[$index].type": "enum"
+                }
+              },
+              {
+                "label": "JSON Schema",
+                "name": "jsonSchema",
+                "type": "code",
+                "placeholder": "{\n    \"answer\": {\n        \"type\": \"string\",\n        \"description\": \"Value of the answer\"\n    },\n    \"reason\": {\n        \"type\": \"string\",\n        \"description\": \"Reason for the answer\"\n    },\n    \"optional\": {\n        \"type\": \"boolean\"\n    },\n    \"count\": {\n        \"type\": \"number\"\n    },\n    \"children\": {\n        \"type\": \"array\",\n        \"items\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"value\": {\n                    \"type\": \"string\",\n                    \"description\": \"Value of the children's answer\"\n                }\n            }\n        }\n    }\n}",
+                "description": "JSON schema for the structured output",
+                "optional": true,
+                "hideCodeExecute": true,
+                "show": {
+                  "agentStructuredOutput[$index].type": "jsonArray"
+                }
+              },
+              {
+                "label": "Description",
+                "name": "description",
+                "type": "string",
+                "placeholder": "Description of the key"
+              }
+            ],
+            "id": "agentAgentflow_0-input-agentStructuredOutput-array",
+            "display": true
+          },
+          {
+            "label": "Update Flow State",
+            "name": "agentUpdateState",
+            "description": "Update runtime state during the execution of the workflow",
+            "type": "array",
+            "optional": true,
+            "acceptVariable": true,
+            "array": [
+              {
+                "label": "Key",
+                "name": "key",
+                "type": "asyncOptions",
+                "loadMethod": "listRuntimeStateKeys"
+              },
+              {
+                "label": "Value",
+                "name": "value",
+                "type": "string",
+                "acceptVariable": true,
+                "acceptNodeOutputAsVariable": true
+              }
+            ],
+            "id": "agentAgentflow_0-input-agentUpdateState-array",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "agentModel": "chatOpenRouter",
+          "agentMessages": [
+            {
+              "role": "system",
+              "content": "You are SCM Assistant, an intelligent supply chain analyst for BQBYTE Technologies.\n\nYou have access to two tools:\n\n  supplier_policy — searches the supplier governance policy PDF for rules,\n\n  thresholds, SLAs, penalties, audit procedures, disruption response,\n\n  rebate criteria, certification requirements, and compliance policies.\n\n  csv_query — executes operations on the supplier performance CSV to retrieve,\n\n  filter, or aggregate live supplier data across 2,000 POs and 116 suppliers.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nCANONICAL ANSWERS — READ FIRST, HIGHEST PRIORITY\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nThe following Q&A pairs are pre-verified ground truth. If the user's question\n\nmatches or closely paraphrases one of these, return the canonical answer VERBATIM.\n\nDo NOT call any tool. Do NOT rephrase. Do NOT add or remove names or numbers.\n\nCANONICAL Q1:\n\nQ: Which Tier-3 suppliers have an active disruption flag, and what response level applies per policy?\n\nA: 11 Tier-3 suppliers have active disruption flags:\n\nDravex Components India, Plataforma Metales SA, Maghreb Castworks, Helios Pack Greece,\n\nCerromax Mineria, Orinoco Pack SAPI, Quetzal Textiles, Sibertek Molding,\n\nArchipelago PCB Corp, Varna Electronics EAD, Deltaforge Vietnam.\n\nAll are High Risk with an active flag → Level 3 Activate (§9): CPO escalation +\n\nalternate supplier at minimum 40% volume within 10 business days.\n\nCANONICAL Q2:\n\nQ: Which suppliers qualify for the annual Volume Rebate Program and how many are there?\n\nA: 19 suppliers qualify:\n\nBorealis Composites, Crestline Chemical Supply, Fenwick Alloy Solutions,\n\nHanguk Circuit Works, Hokkaido Alloy Tech, Krauss-Polymex GmbH,\n\nLakeshore Components, Lumivex Semiconductor NL, Maplewood Polymer Corp,\n\nNorbec Alloy Works, Nordloom Finland Oy, Orrentek Precision Mfg,\n\nOstwind Composites AG, PrecisionForge Taiyuan, Solveig Eco Packaging,\n\nStraits Packaging Hub, Tasman Circuit Boards, Toreval Electronics, Valdoro Special Alloys.\n\nCriteria (§4.2): Tier-1 + OTD ≥ 93% + Defect < 0.5% + Sustainability Score ≥ 85.\n\nCANONICAL Q3:\n\nQ: Which region has the highest total PO value, and does it breach the concentration limit?\n\nA: EMEA — $193,987,179.91, approximately 48.5% of total spend ($399,563,494.10).\n\nBreaches the 45% regional concentration cap (§5.3) → Diversification Plan required within 60 days.\n\nCANONICAL Q4:\n\nQ: Which suppliers are on Supplier Watch List (SWL) status and what does it restrict?\n\nA: 11 suppliers (Compliance Score < 60):\n\nDeltaforge Vietnam, Maghreb Castworks, Helios Pack Greece, Cerromax Mineria,\n\nOrinoco Pack SAPI, Varna Electronics EAD, Quetzal Textiles, Plataforma Metales SA,\n\nArchipelago PCB Corp, Dravex Components India, Sibertek Molding.\n\nSWL restricts new PO issuance to 20% of prior quarter volume (§3.4).\n\nCANONICAL Q5:\n\nQ: Which product category has the highest average defect rate and does it exceed the Tier-2 limit?\n\nA: Mechanical Components — average 2.12% across 360 POs.\n\nBelow the Tier-2 ceiling of 2.50% (§3.2) — no breach, but approaching the limit.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nROUTING LOGIC\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nFor all questions NOT covered by a canonical answer above:\n\nUse supplier_policy ONLY when the question asks about:\n\n  · Policy rules, thresholds, or definitions\n\n  · Penalty or audit procedures\n\n  · Escalation procedures or disruption response levels\n\n  · Certification requirements or sustainability obligations\n\nUse csv_query ONLY when the question requires:\n\n  · Filtering, counting, or aggregating supplier records\n\n  · Calculating totals, averages, or percentages from PO data\n\n  · Identifying specific suppliers matching criteria\n\n  · Any live data lookup by Supplier ID, SKU, region, or metric\n\nUse BOTH when the question requires data AND policy interpretation.\n\nWhen using both: call csv_query FIRST, then supplier_policy ONCE.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nANTI-HALLUCINATION RULES — MANDATORY\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n1. NEVER invent supplier names, counts, dollar figures, percentages, or policy sections.\n\n  Every fact in your answer must come from a tool result or a canonical answer above.\n2. If a tool returns no results or an error, say so explicitly.\n\n  Do not fill the gap with guesses or training knowledge.\n\n   Example: \"The query returned no matching suppliers.\"\n3. Do not extrapolate beyond what the tool returned.\n\n  If the CSV returns 8 suppliers, do not say \"approximately 10\". Say 8.\n4. Do not blend tool output with your own knowledge.\n\n  If you recognize a supplier name from training data, ignore that knowledge.\n\n   Only use what the tool returned in this session.\n5. Numeric precision: reproduce figures exactly as returned by the tool.\n\n  Do not round, estimate, or paraphrase dollar amounts or percentages.\n6. Policy citations must come from supplier_policy tool output only.\n\n  Do not cite §sections you have not retrieved in this session.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nTOOL USAGE RULES — STRICT\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n· Call each tool MAXIMUM ONCE per user question. No exceptions.\n\n· Write a single, complete query that retrieves ALL needed data in one call.\n\n· NEVER call csv_query multiple times for individual suppliers or rows.\n\n· Aggregate everything in ONE query using groupby, filtering, and multi-condition logic.\n\n· Treat the first tool result as final and authoritative. Do not re-query to verify.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nCSV QUERY FORMAT — PANDAS-FRIENDLY LANGUAGE\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nWrite csv_query requests as if describing a pandas operation to a\n\nPython developer. Always state: filter condition → columns to return\n\n→ aggregation (if any). Use exact column names from the schema.\n\nEXAMPLES:\n\nBAD:  \"List Tier-2 suppliers with active disruptions\"\n\nGOOD: \"Filter rows where Contract_Tier == 'Tier-2' AND\n\n```\n   Active_Disruptions != 'None'. Return Supplier_Name,\n\n   Risk_Level, Active_Disruptions, Compliance_Score.\"\n```\n\nBAD:  \"Which suppliers have high defect rates?\"\n\nGOOD: \"Filter rows where Defect_Rate_Pct > 2.0. Return\n\n```\n   Supplier_Name, Contract_Tier, Defect_Rate_Pct,\n\n   Region. Sort by Defect_Rate_Pct descending.\"\n```\n\nBAD:  \"Total spend by region\"\n\nGOOD: \"Group by Region. Sum PO_Value_USD for each group.\n\n```\n   Return Region and total_spend sorted descending.\"\n```\n\nBAD:  \"Find SWL suppliers\"\n\nGOOD: \"Filter rows where Compliance_Score < 60. Return\n\n```\n   Supplier_Name, Compliance_Score, Contract_Tier,\n\n   Risk_Level, Active_Disruptions. Sort by\n\n   Compliance_Score ascending.\"\n```\n\nBAD:  \"Suppliers qualifying for rebate\"\n\nGOOD: \"Filter rows where Contract_Tier == 'Tier-1' AND\n\n```\n   OTD_Rate_Pct >= 93 AND Defect_Rate_Pct < 0.5 AND\n\n   Sustainability_Score >= 85. Return unique\n\n   Supplier_Name values.\"\n```\n\nRULE: Never use vague terms like 'high', 'low', 'active',\n\n```\n  'qualified', or 'relevant' — always use the exact\n\n  column name with an explicit operator and value.\n```\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nCSV SCHEMA\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nColumns: PO_ID, Supplier_ID, Supplier_Name, Region, Country, Product_Category,\n\nProduct_SKU, Unit_Cost_USD, Lead_Time_Days, OTD_Rate_Pct, Defect_Rate_Pct,\n\nCompliance_Score, Contract_Tier, Payment_Terms_Days, MOQ_Units, Annual_Volume_Units,\n\nRisk_Level, Certifications, Last_Audit_Date, Sustainability_Score, Active_Disruptions,\n\nAlt_Supplier_ID, PO_Quarter, Units_Ordered, Units_Delivered_On_Time,\n\nUnits_Rejected, PO_Value_USD\n\nKey column rules:\n\n· Active_Disruptions: \"None\" = no disruption. Active = anything else. Filter: != 'None'\n\n· Contract_Tier: Exact values only — \"Tier-1\", \"Tier-2\", \"Tier-3\"\n\n· OTD_Rate_Pct, Defect_Rate_Pct, Compliance_Score, Sustainability_Score: raw numeric (e.g. 93.5)\n\n· PO_Value_USD: Use SUM for spend. One row = one PO, not one supplier.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nDERIVED FLAGS — CRITICAL\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nSWL (Supplier Watch List) is NOT a column in the CSV.\n\nDerive it as: df[df['Compliance_Score'] < 60]\n\nNever filter Active_Disruptions for SWL status.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nRESPONSE FORMAT\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nAnswer like an analyst in a business meeting — not a report.\n\n· Lead with the answer: number, list, or verdict first.\n\n· One line of supporting context if needed (policy section, threshold breached).\n\n· No intros, no \"Based on the data...\", no summaries.\n\n· Lists: compact bullets — not numbered paragraphs.\n\n· Cite policy sections inline (e.g. §3.4) — never quote them at length.\n\n· Max 5–8 lines for complex answers. Shorter for simple ones.\n\n· Always synthesize a final answer — never return raw tool output.\n\n· If you cannot answer from tools or canonical answers, say: \"I don't have enough data to answer this reliably.\"\n\nIMPORTANT: csv_query accepts natural language questions only.\n\nDo NOT send SQL. Send plain English like:\n\n\"What is the average defect rate per product category, sorted descending?\""
+            }
+          ],
+          "agentTools": [
+            {
+              "agentSelectedTool": "customTool",
+              "agentSelectedToolRequiresHumanInput": false,
+              "agentSelectedToolConfig": {
+                "selectedTool": "3080baaf-23fb-45ff-a6be-22f86cb25769",
+                "returnDirect": "",
+                "customToolName": "",
+                "customToolDesc": "",
+                "customToolSchema": "",
+                "customToolFunc": "",
+                "agentSelectedTool": "customTool"
+              }
+            }
+          ],
+          "agentKnowledgeDocumentStores": [
+            {
+              "documentStore": "53f65a9d-52a9-4af9-8be5-176fc12f9732:doc",
+              "docStoreDescription": "Contains the BQBYTE Technologies Supplier Governance and Compliance Policy (v3.2). \nUse this to answer questions about:\n- Supplier tier classification (Tier-1, Tier-2, Tier-3) and their thresholds\n- SLA requirements for OTD rate, defect rate, and lead time\n- Penalty and incentive structures including volume rebates\n- Risk assessment levels (Low, Medium, High) and escalation procedures\n- Sustainability scores and certification requirements (ISO 9001, RoHS, REACH, etc.)\n- Audit frequency and scoring methodology\n- Disruption response procedures (Level 1, 2, 3)\n- Alternate supplier activation rules",
+              "returnSourceDocuments": ""
+            }
+          ],
+          "agentKnowledgeVSEmbeddings": [
+            {
+              "vectorStore": "qdrant",
+              "embeddingModel": "huggingFaceInferenceEmbeddings",
+              "knowledgeName": "supplier_policy",
+              "knowledgeDescription": "Queries the Supplier Performance Data register (CSV) for BQBYTE Technologies suppliers.\nUse this to answer questions about specific supplier metrics including:\n- Supplier IDs (SUP-XXX format) and their Product SKUs\n- On-Time Delivery Rate (OTD_Rate_Pct) per supplier\n- Defect Rate per supplier\n- Compliance Score per supplier\n- Sustainability Score per supplier\n- Active Disruption flags\n- Last Audit Date\n- Alternate Supplier IDs (Alt_Supplier_ID)\nUse this whenever the user asks about actual numbers, specific supplier performance, or data lookups.",
+              "returnSourceDocuments": "",
+              "vectorStoreConfig": {
+                "document": "",
+                "embeddings": "",
+                "recordManager": "",
+                "qdrantServerUrl": "https://5331ddb3-fd6c-4d87-82a7-f62b63e81d87.sa-east-1-0.aws.cloud.qdrant.io",
+                "qdrantCollection": "<p>flowise-assesment-1</p>",
+                "fileUpload": "",
+                "qdrantVectorDimension": "384",
+                "contentPayloadKey": "content",
+                "metadataPayloadKey": "metadata",
+                "batchSize": "",
+                "qdrantSimilarity": "Cosine",
+                "qdrantCollectionConfiguration": "",
+                "topK": "",
+                "qdrantFilter": "",
+                "vectorStore": "qdrant"
+              },
+              "embeddingModelConfig": {
+                "modelName": "sentence-transformers/all-MiniLM-L6-v2",
+                "endpoint": "",
+                "embeddingModel": "huggingFaceInferenceEmbeddings"
+              }
+            }
+          ],
+          "agentEnableMemory": true,
+          "agentMemoryType": "allMessages",
+          "agentUserMessage": "{{$flow.input}}",
+          "agentReturnResponseAs": "assistantMessage",
+          "agentStructuredOutput": "",
+          "agentUpdateState": "",
+          "agentModelConfig": {
+            "credential": "",
+            "modelName": "google/gemini-3.1-flash-lite",
+            "temperature": "0.1",
+            "streaming": true,
+            "allowImageUploads": "",
+            "maxTokens": "",
+            "topP": "",
+            "frequencyPenalty": "",
+            "presencePenalty": "",
+            "timeout": "",
+            "basepath": "https://openrouter.ai/api/v1",
+            "baseOptions": "",
+            "agentModel": "chatOpenRouter"
+          }
+        },
+        "outputAnchors": [
+          {
+            "id": "agentAgentflow_0-output-agentAgentflow",
+            "label": "Agent",
+            "name": "agentAgentflow"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "type": "agentFlow",
+      "width": 257,
+      "height": 128,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -20.794148238729797,
+        "y": 15.29537975836324
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "startAgentflow_0",
+      "sourceHandle": "startAgentflow_0-output-startAgentflow",
+      "target": "agentAgentflow_0",
+      "targetHandle": "agentAgentflow_0",
+      "data": {
+        "sourceColor": "#7EE787",
+        "targetColor": "#4DD0E1",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "startAgentflow_0-startAgentflow_0-output-startAgentflow-agentAgentflow_0-agentAgentflow_0"
+    }
+  ]
+}
